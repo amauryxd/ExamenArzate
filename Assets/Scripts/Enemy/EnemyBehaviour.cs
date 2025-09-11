@@ -11,6 +11,7 @@ public class EnemyBehaviour : MonoBehaviour
     public float[] enemySpeed;
     public Transform playerPos;
     public bool canStartBehaviour;
+    public bool canAssignBehaviour;
     NavMeshAgent nav;
 
 
@@ -26,11 +27,12 @@ public class EnemyBehaviour : MonoBehaviour
     {
         nav = GetComponent<NavMeshAgent>();
         mesh = GetComponent<MeshRenderer>();
-        
+        canStartBehaviour = false;
+        canAssignBehaviour = false;
     }
     void OnEnable()
     {
-        BehaviourEnemy(typeEnemy);
+        //BehaviourEnemy(typeEnemy);
     }
     // Update is called once per frame
     void Update()
@@ -40,18 +42,25 @@ public class EnemyBehaviour : MonoBehaviour
             MoveToPlayer();
             RotateEnemy();
         }
+        if (canAssignBehaviour)
+        {
+            BehaviourEnemy(typeEnemy);
+            canAssignBehaviour= false;
+        }
     }
     public void BehaviourEnemy(int enemyType)
     {
         switch (enemyType)
         {
             case 1:
+            if(nav != null && nav == enabled)
                 nav.speed = enemySpeed[0];
                 transform.localScale = sizeEnemys[0];
                 mesh.material = enemyMaterials[0];
                 //MoveToPlayer();
                 break;
             case 2:
+            if(nav != null && nav == enabled)
                 nav.speed = enemySpeed[1];
                 transform.localScale = sizeEnemys[1];
                 mesh.material = enemyMaterials[1];
@@ -59,6 +68,7 @@ public class EnemyBehaviour : MonoBehaviour
                 corutineBeha = StartCoroutine(SecondBehaviour());
                 break;
             case 3:
+            if(nav != null && nav == enabled)
                 nav.speed = enemySpeed[2];
                 transform.localScale = sizeEnemys[2];
                 mesh.material = enemyMaterials[2];
@@ -67,6 +77,7 @@ public class EnemyBehaviour : MonoBehaviour
                 break;
             case 4:
                 //MoveToPlayer();
+                if(nav != null && nav == enabled)
                 nav.speed = enemySpeed[3];
                 transform.localScale = sizeEnemys[3];
                 mesh.material = enemyMaterials[3];
@@ -84,7 +95,7 @@ public class EnemyBehaviour : MonoBehaviour
     {
         while (true)
         {
-            if (nav.isActiveAndEnabled)
+            if (nav != null && nav == enabled)
             {
                 float newSpeed = enemySpeed[1] + sumToSpeed;
                 nav.speed = newSpeed;
@@ -98,7 +109,7 @@ public class EnemyBehaviour : MonoBehaviour
     {
         while (true)
         {
-            if (nav.isActiveAndEnabled)
+            if (nav != null && nav == enabled)
             {
                 nav.isStopped = true;
                 canRotate = true;
