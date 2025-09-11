@@ -83,6 +83,7 @@ public class PoolManager : MonoBehaviour
             {
                 enemysPool[indexRequestEnemy].GetComponent<EnemyBehaviour>().playerPos = plyPos;
                 enemysPool[indexRequestEnemy].GetComponent<EnemyBehaviour>().typeEnemy = type;
+                enemysPool[indexRequestEnemy].transform.position = new Vector3(300, 1, 0);
                 enemysPool[indexRequestEnemy].SetActive(true);
                 return enemysPool[indexRequestEnemy];
             }

@@ -25,7 +25,18 @@ public class BulletBehaviour : MonoBehaviour
     }
     void OnDisable()
     {
-        if(!(toDespawn == null))
-        StopCoroutine(toDespawn);
+        if (!(toDespawn == null))
+            StopCoroutine(toDespawn);
+    }
+    void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.CompareTag("Enemy"))
+        {
+            if (other.TryGetComponent<EnemyHealth>(out EnemyHealth health))
+            {
+                health.getHit();
+            }
+        }
+        gameObject.SetActive(false);
     }
 }

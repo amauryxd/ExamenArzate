@@ -10,6 +10,7 @@ public class EnemyBehaviour : MonoBehaviour
     public int typeEnemy;
     public float[] enemySpeed;
     public Transform playerPos;
+    public bool canStartBehaviour;
     NavMeshAgent nav;
 
 
@@ -31,8 +32,11 @@ public class EnemyBehaviour : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        MoveToPlayer();
-        RotateEnemy();
+        if (canStartBehaviour)
+        {
+            MoveToPlayer();
+            RotateEnemy();
+        }
     }
     public void BehaviourEnemy(int enemyType)
     {
@@ -68,7 +72,6 @@ public class EnemyBehaviour : MonoBehaviour
                 break;
         }
     }
-
     public void MoveToPlayer()
     {
         nav.SetDestination(playerPos.position);
