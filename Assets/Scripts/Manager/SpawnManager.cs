@@ -1,12 +1,15 @@
+using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.AI;
 
 public class SpawnManager : MonoBehaviour
 {
+    public static event Action<int> roundSend;
     [SerializeField] private WaveData dataToSpawn;
     [SerializeField] private Vector3 minRange;
     [SerializeField] private Vector3 maxRange;
+
 
     private int round;
     private int enemyCuanity;
@@ -37,6 +40,7 @@ public class SpawnManager : MonoBehaviour
         if (round < dataToSpawn.Waves.Length)
         {
             WaveSpawn(round);
+            roundSend?.Invoke(round);
         }
     }
 
@@ -46,6 +50,7 @@ public class SpawnManager : MonoBehaviour
         for (int indexWaveSpawn = 0; indexWaveSpawn < dataToSpawn.Waves[round].Enemies.Length; indexWaveSpawn++)
         {
             StartCoroutine(EnemyToSpawn(dataToSpawn.Waves[round].Enemies[indexWaveSpawn].Enemy, dataToSpawn.Waves[round].Enemies[indexWaveSpawn].Time));
+            Debug.Log("Ronda " + round+1 + ", Enemigo " + indexWaveSpawn + " spawneado, era del tipo: "+dataToSpawn.Waves[round].Enemies[indexWaveSpawn].Enemy);
         }
     }
 
@@ -59,7 +64,7 @@ public class SpawnManager : MonoBehaviour
         enemy.GetComponent<EnemyBehaviour>().canStartBehaviour = true;
     }
     public Vector3 SpawnPointEnemy() {
-        return new Vector3(Random.Range(minRange.x,maxRange.x),Random.Range(minRange.y,maxRange.y),Random.Range(minRange.z,maxRange.z));
+        return new Vector3(UnityEngine.Random.Range(minRange.x,maxRange.x),UnityEngine.Random.Range(minRange.y,maxRange.y),UnityEngine.Random.Range(minRange.z,maxRange.z));
     }
     public void WaveDataAssigner(WaveData data)
     {

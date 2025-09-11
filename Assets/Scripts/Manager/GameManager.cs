@@ -25,7 +25,6 @@ public class GameManager : MonoBehaviour
     void Update()
     {
         temp = enemiesLeft;
-        Debug.Log(enemiesLeft.Count);
         if (enemiesLeft.Count <= 0 && canStart)
         {
             StartGame?.Invoke();

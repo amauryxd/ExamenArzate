@@ -26,9 +26,12 @@ public class EnemyBehaviour : MonoBehaviour
     {
         nav = GetComponent<NavMeshAgent>();
         mesh = GetComponent<MeshRenderer>();
+        
+    }
+    void OnEnable()
+    {
         BehaviourEnemy(typeEnemy);
     }
-
     // Update is called once per frame
     void Update()
     {
@@ -81,24 +84,30 @@ public class EnemyBehaviour : MonoBehaviour
     {
         while (true)
         {
-            float newSpeed = enemySpeed[1] + sumToSpeed;
-            nav.speed = newSpeed;
-            yield return new WaitForSeconds(3);
-            nav.speed = nav.speed = enemySpeed[1];
-            yield return new WaitForSeconds(3);
+            if (nav.isActiveAndEnabled)
+            {
+                float newSpeed = enemySpeed[1] + sumToSpeed;
+                nav.speed = newSpeed;
+                yield return new WaitForSeconds(3);
+                nav.speed = nav.speed = enemySpeed[1];
+                yield return new WaitForSeconds(3);
+            }
         }
     }
     public IEnumerator ThirdBehaviour()
     {
         while (true)
         {
-            nav.isStopped = true;
-            canRotate = true;
-            yield return new WaitForSeconds(3);
-            nav.isStopped = false;
-            canRotate = false;
-            //nav.SetDestination(playerPos.position);
-            yield return new WaitForSeconds(5);
+            if (nav.isActiveAndEnabled)
+            {
+                nav.isStopped = true;
+                canRotate = true;
+                yield return new WaitForSeconds(3);
+                nav.isStopped = false;
+                canRotate = false;
+                //nav.SetDestination(playerPos.position);
+                yield return new WaitForSeconds(5);
+            }
         }
     }
     public void RotateEnemy()

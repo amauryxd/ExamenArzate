@@ -8,11 +8,6 @@ public class EnemyHealth : MonoBehaviour
     
     private EnemyBehaviour enemyTypeReferene;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        enemyTypeReferene = GetComponent<EnemyBehaviour>();
-        actualLife = EnemyLife[enemyTypeReferene.typeEnemy];
-    }
     public void getHit()
     {
         actualLife--;
@@ -27,6 +22,7 @@ public class EnemyHealth : MonoBehaviour
     }
     void OnEnable()
     {
+        enemyTypeReferene = GetComponent<EnemyBehaviour>();
         actualLife = EnemyLife[enemyTypeReferene.typeEnemy];
     }
     // Update is called once per frame
