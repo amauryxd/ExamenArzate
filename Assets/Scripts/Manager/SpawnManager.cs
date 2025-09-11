@@ -10,7 +10,7 @@ public class SpawnManager : MonoBehaviour
     [SerializeField] private WaveData dataToSpawn;
     [SerializeField] private Vector3 minRange;
     [SerializeField] private Vector3 maxRange;
-
+    private bool canGameTryToWin;
 
     private int round;
     private int enemyCuanity;
@@ -29,6 +29,7 @@ public class SpawnManager : MonoBehaviour
     void Start()
     {
         round = 0;
+        canGameTryToWin = false;
     }
 
     // Update is called once per frame
@@ -43,7 +44,7 @@ public class SpawnManager : MonoBehaviour
             WaveSpawn(round);
             roundSend?.Invoke(round);
         }
-        else
+        else if(canGameTryToWin)
         {
             finishGame?.Invoke();
         }
@@ -79,6 +80,7 @@ public class SpawnManager : MonoBehaviour
     public void SetGame()
     {
         RoundStart();
+        canGameTryToWin = true;
         round++;
     }
 }
