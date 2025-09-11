@@ -5,7 +5,7 @@ using UnityEngine.Networking;
 
 public class QueryManager : MonoBehaviour
 {
-    public static event Action<string> textSend;
+    public static event Action<WaveData> textSend;
     public string endpoint;
     Coroutine textGetter;
     void Start()
@@ -25,7 +25,9 @@ public class QueryManager : MonoBehaviour
         yield return webRequest.SendWebRequest();
         if (webRequest.result.Equals(UnityWebRequest.Result.Success))
         {
-            textSend?.Invoke(webRequest.downloadHandler.text);
+            //textSend?.Invoke(webRequest.downloadHandler.text);
+            WaveData data = JsonUtility.FromJson<WaveData>(webRequest.downloadHandler.text);
+            textSend?.Invoke(data);
         }
     }
 }
