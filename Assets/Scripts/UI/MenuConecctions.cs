@@ -11,4 +11,8 @@ public class MenuConecctions : MonoBehaviour
     {
         Application.Quit();
     }
+    public void ChangeToMenu()
+    {
+        SceneManager.LoadScene("Menu");
+    }
 }

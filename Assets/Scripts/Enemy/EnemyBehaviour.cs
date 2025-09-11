@@ -33,6 +33,7 @@ public class EnemyBehaviour : MonoBehaviour
     void OnEnable()
     {
         //BehaviourEnemy(typeEnemy);
+        canRotate = false;
     }
     // Update is called once per frame
     void Update()

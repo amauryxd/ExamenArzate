@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 2149269877191216369}
   - component: {fileID: 8749000521267549211}
   - component: {fileID: -1402192066083817499}
+  - component: {fileID: 8083446395511913649}
   m_Layer: 0
   m_Name: Enemy
   m_TagString: Enemy
@@ -67,6 +68,7 @@ MonoBehaviour:
   - 5
   playerPos: {fileID: 0}
   canStartBehaviour: 0
+  canAssignBehaviour: 0
   sumToSpeed: 3
 --- !u!33 &6838821419601727165
 MeshFilter:
@@ -180,3 +182,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyHealth
   EnemyLife: 0500000004000000080000000f0000000f000000
+--- !u!114 &8083446395511913649
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7380228673254656556}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7ac6e359c20ec304b8bea0edb836298a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EnemyHit

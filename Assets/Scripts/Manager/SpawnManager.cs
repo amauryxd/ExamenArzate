@@ -6,6 +6,7 @@ using UnityEngine.AI;
 public class SpawnManager : MonoBehaviour
 {
     public static event Action<int> roundSend;
+    public static event Action finishGame;
     [SerializeField] private WaveData dataToSpawn;
     [SerializeField] private Vector3 minRange;
     [SerializeField] private Vector3 maxRange;
@@ -42,6 +43,10 @@ public class SpawnManager : MonoBehaviour
             WaveSpawn(round);
             roundSend?.Invoke(round);
         }
+        else
+        {
+            finishGame?.Invoke();
+        }
     }
 
     public void WaveSpawn(int round)
@@ -50,7 +55,7 @@ public class SpawnManager : MonoBehaviour
         for (int indexWaveSpawn = 0; indexWaveSpawn < dataToSpawn.Waves[round].Enemies.Length; indexWaveSpawn++)
         {
             StartCoroutine(EnemyToSpawn(dataToSpawn.Waves[round].Enemies[indexWaveSpawn].Enemy, dataToSpawn.Waves[round].Enemies[indexWaveSpawn].Time));
-            Debug.Log("Ronda " + round+1 + ", Enemigo " + indexWaveSpawn + " spawneado, era del tipo: "+dataToSpawn.Waves[round].Enemies[indexWaveSpawn].Enemy);
+            //Debug.Log("Ronda " + round+1 + ", Enemigo " + indexWaveSpawn + " spawneado, era del tipo: "+dataToSpawn.Waves[round].Enemies[indexWaveSpawn].Enemy);
         }
     }
 
