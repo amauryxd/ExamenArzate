@@ -51,7 +51,7 @@ public class GameManager : MonoBehaviour
     }
     public void LoseCondition()
     {
-        plyReference.SetActive(true);
+        plyReference.SetActive(false);
         canvasGameplay.enabled = false;
         canvasLose.enabled = true;
     }
