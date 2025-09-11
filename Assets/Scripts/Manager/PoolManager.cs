@@ -4,16 +4,17 @@ using UnityEngine;
 
 public class PoolManager : MonoBehaviour
 {
+    [Header("Player Reference")]
+    [SerializeField] private Transform plyPos;
     [Header("Pool Bullets")]
     [SerializeField] private int bulletPoolSize;
     [SerializeField] private GameObject bulletPrefab;
     [SerializeField] private List<GameObject> bulletsPool;
 
-    [Header("Enemy Type 1 Pool")]
-    [SerializeField] private int manyEnemys;
+    [Header("Pool Enemys")]
     [SerializeField] private int enemysPoolSize;
-    [SerializeField] private GameObject[] enemys;
-    [SerializeField] private List<GameObject>[] enemysPool;
+    [SerializeField] private GameObject enemyPrefab;
+    [SerializeField] private List<GameObject> enemysPool;
 
 
     private static PoolManager instance;
@@ -50,16 +51,15 @@ public class PoolManager : MonoBehaviour
     }
     public void AddToEnemyList()
     {
-        for (int indexEnemyList = 0; indexEnemyList < manyEnemys; indexEnemyList++)
-        {
+
             for (int indexEnemy = 0; indexEnemy < enemysPoolSize; indexEnemy++)
             {
-                GameObject enemy = Instantiate(enemys[indexEnemyList]);
+                GameObject enemy = Instantiate(enemyPrefab);
                 enemy.SetActive(false);
-                enemysPool[indexEnemyList].Add(enemy);
+                enemysPool.Add(enemy);
                 enemy.transform.parent = transform;
             }
-        }
+
     }
 
     public GameObject RequestBullet()
@@ -77,12 +77,14 @@ public class PoolManager : MonoBehaviour
 
     public GameObject RequestEnemy(int type)
     {
-        for (int indexRequestEnemy = 0; indexRequestEnemy < enemysPool[type-1].Count; indexRequestEnemy++)
+        for (int indexRequestEnemy = 0; indexRequestEnemy < enemysPool.Count; indexRequestEnemy++)
         {
-            if (!enemysPool[type][indexRequestEnemy].activeSelf)
+            if (!enemysPool[indexRequestEnemy].activeSelf)
             {
-                enemysPool[type][indexRequestEnemy].SetActive(true);
-                return enemysPool[type][indexRequestEnemy];
+                enemysPool[indexRequestEnemy].GetComponent<EnemyBehaviour>().playerPos = plyPos;
+                enemysPool[indexRequestEnemy].GetComponent<EnemyBehaviour>().typeEnemy = type;
+                enemysPool[indexRequestEnemy].SetActive(true);
+                return enemysPool[indexRequestEnemy];
             }
         }
         return null;

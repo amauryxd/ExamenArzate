@@ -3,7 +3,7 @@ using UnityEngine;
 public class PlayerShoot : InputHandler
 {
     [SerializeField] private Transform shootPoint;
-    [SerializeField] private GameObject bullet;
+    private GameObject bullet;
 
     void Update()
     {

@@ -18,8 +18,14 @@ public class BulletBehaviour : MonoBehaviour
     {
         transform.position += transform.right * Time.deltaTime * bulletSpeed;
     }
-    public IEnumerator WaitToDespawn() {
+    public IEnumerator WaitToDespawn()
+    {
         yield return new WaitForSeconds(3);
         gameObject.SetActive(false);
+    }
+    void OnDisable()
+    {
+        if(!(toDespawn == null))
+        StopCoroutine(toDespawn);
     }
 }
