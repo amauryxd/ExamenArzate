@@ -67,6 +67,7 @@ public class SpawnManager : MonoBehaviour
         yield return new WaitForSeconds(timeToWait);
         enemy.transform.position = SpawnPointEnemy();
         enemy.GetComponent<NavMeshAgent>().enabled = true;
+        enemy.GetComponent<Rigidbody>().linearVelocity = new Vector3(0, 0, 0);
         enemy.GetComponent<EnemyBehaviour>().canAssignBehaviour = true;
         enemy.GetComponent<EnemyBehaviour>().canStartBehaviour = true;
     }
